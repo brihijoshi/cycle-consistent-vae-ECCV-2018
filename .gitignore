@@ -1,10 +1,11 @@
-# Byte-compiled / optimized / DLL files
+#Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 splits/
 processed/
 data/
+*.tar.gz
 
 # C extensions
 *.so
