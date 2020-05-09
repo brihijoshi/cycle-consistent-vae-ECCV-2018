@@ -6,7 +6,7 @@ splits/
 processed/
 data/
 *.tar.gz
-
+*.pkl
 # C extensions
 *.so
 
