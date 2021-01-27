@@ -15,18 +15,24 @@ pip install -r requirements.txt
 
 ## Training the Model
 
-There is no need to download the __MNIST__ dataset separately, as the method uses the default __MNIST__ ```Dataloader``` in PyTorch.
+### Dataset
 
-The model definition is present in ```code/vae.py``` and the training script is present in ```code/train.ipynb```. Make sure you use a Jupyter Notebook to train, so that the ```livelossplot``` plots can be visualised in real time.
+Download the __2D Sprites__ dataset from [here](http://www-personal.umich.edu/~reedscot/files/nips2015-analogy-data.tar.gz) and run the following steps - 
+- Create a folder named ```./splits/``` in the root folder. 
+- Run the code present in ```create_sprites.ipynb``` to read the dataset, and process the images. 
+- The code will create train and test splits for the dataset in the ```./splits/```  folder
 
- 
+### Model
+
+The model definition is present in ```cycle_consistent_vae_in.py``` and the training script is present in ```train_512_64_in.py```. 
+
 ## Results
 
-The code for the results are present in ```code/analysis.ipynb``` 
+### Loss Plots
 
-### Loss Plot
+The loss plots are generated while the training is going on, with the help of the ```livelossplot``` library. 
 
-![Loss Plot](./figures/vanilla_vae_test.png)
+![Loss Plot](./figures/cycle_vae_512_64_in.png)
 
 ### Generated Images
 
