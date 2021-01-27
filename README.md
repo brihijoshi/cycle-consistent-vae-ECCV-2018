@@ -34,29 +34,35 @@ The loss plots are generated while the training is going on, with the help of th
 
 ![Loss Plot](./figures/cycle_vae_512_64_in.png)
 
-### Generated Images
+### Style Transfer
 
-A set of images are randomly sampled from the latent space and plotted as follows - 
+To qualitatively check the disentaglement performance of the model, we transfer the style across different sprites, while keeping their character identity the same. The topmost row contains the images from where the specified features (_s_) is taken, and the first column contains images from where the unspecified features (_z_) is taken. These images have been taken from the Test set.
 
-![Generated Images](./figures/trained_random_generated.png)
+![Style Transfer 1](./figures/style_transfer.png)
+![Style Transfer 2](./figures/style_transfer_variety.png)
 
-### Generation Quality
+### Interpolation
 
-With the increase in epochs, it is observed that the generation quality of the VAE improves.
+For the interpolation plot, the first image (1,1) and the last image (8,8) are actual sprites taken from the Test set. Across the columns, the specified vector (class identification) gets interpolated and across the rows, the unspecified vector (pose identification) gets interpolated.
 
-![Generation Quality](./figures/generation_quality.png)
+![Interpolation 1](./figures/interpolation1.png)
+![Interpolation 2](./figures/interpolation2.png)
 
-### Evaluating the Latent representation
+### Classifiers on the Specified and Unspecified Latent Representations
 
-An SVM is trained on the Latent representations of the samples, achieving a test __micro-average F1 score of 0.81__. For further details on the results, please refer to the report - ```report.pdf``` .
+Attaching a fully connected network on top of the latent representations, the specified representations achieved a test accuracy of __0.67__ and the unspecified features yielded a test accuracy of __0.002__. For further details on the results and analysis, please refer to _Section 2.4 in Page 5_ of the report - ```report.pdf``` .
 
-#### t-SNE visualisation of the Latent space
+### Prediction networks on Latent Representations
 
-![t-SNE visualisation of the Latent space](./figures/latent_tsne.png)
+![Reconstruction 1](./figures/recons1.png)
 
-#### Classifier Performance
+It can be observed that there are no mis-classifications in the reconstructed batch. This is probably because, unspecified features (like pose) might contain cues about the hair/skin colour and clothes of the sprite, and thus, the class of the sprite can be constructed with the help of the pose. Another reason why this might happen is that for each class, there are multiple poses, thus the data gives better indication for the construction of specified features from the unspecified features.
 
-![Classifier Performance](./figures/latent_confusion_matrix.png)
+#### Predicting Specified Representations from Unspecified Representations
+
+![Reconstruction 2](./figures/recons2.png)
+
+It can be observed that all of the reconstructed images are mis-classified for the batch. This is probably because of the one-to-many mapping that is present in the dataset. Each class has multiple poses and thus, given a class representation, it is difficult to pinpoint the exact pose that a sprite of a certain class would have. Thus, even though the poses are not random, they are not the poses corresponding to the original batch. These results re-assert the motivation for the Cyclic VAE architecture, which is to ensure that the specified feature information does not leak into the unspecified feature space.
 
 
 ## License 
